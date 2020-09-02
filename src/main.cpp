@@ -1,10 +1,11 @@
 #include <iostream>
-#include "ConsoleMenu.h"
+#include "Menu.h"
 
 int main()
 {
 	
-  ConsoleMenu consoleMenu;
+  Menu consoleMenu;
+
 
 	return 0;
 }

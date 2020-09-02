@@ -6,14 +6,14 @@
 configure and start the raytracer.
 
 ***********************************************/
-class ConsoleMenu 
+class Menu 
 {
   public:
   /**********************************************
   @brief Set default values for SDL window.
 
   ***********************************************/
-    ConsoleMenu();
+    Menu();
 
 
 
@@ -21,7 +21,7 @@ class ConsoleMenu
   private:
   /**************************************************************************************************/
     std::string userInput;
-
+    std::string path;
     int windowWidth;
     int windowHeight;
     

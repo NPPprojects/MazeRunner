@@ -22,6 +22,12 @@ add_executable(MazeSolver
 
 	src/GeneticAlgorithm.cpp
 	src/GeneticAlgorithm.h
+
+	src/Map.cpp
+	src/Map.h
+
+	src/Menu.cpp
+	src/Menu.h
 )
 
 target_link_libraries(MazeSolver SDL2)

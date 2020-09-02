@@ -1,8 +1,8 @@
-#include "ConsoleMenu.h"
-
-ConsoleMenu::ConsoleMenu()
+#include "Menu.h"
+#include "Map.h";
+#include <memory>
+Menu::Menu()
 {
-  //Default window values
   windowWidth = 640;
   windowHeight = 480;
 
@@ -11,40 +11,47 @@ ConsoleMenu::ConsoleMenu()
   run();
 }
 
-void ConsoleMenu::run()
+void Menu::run()
 {
   while (running)
   {
     printToConsole();
     std::cin >> userInput;
     processInput();
+    std::shared_ptr<Map> map = std::make_shared<Map>(path);
+    map->printMap();
   }
 }
 
-void ConsoleMenu::printToConsole()
+void Menu::printToConsole()
 {
-  std::cout << "[1] Start" << std::endl;
-  std::cout << "[2] Change window size (currently: " << windowWidth << " by " << windowHeight << ")" << std::endl;
-  std::cout << "[3] Quit" << std::endl;
+  std::cout << "Select Map" << std::endl;
+  std::cout << "[1] 4x6 Map " << std::endl;
+  std::cout << "[2] 6x4 Map"<< std::endl;
+  std::cout << "[3] 10x10 Map" << std::endl;
   std::cout << std::endl;
 }
 
-void ConsoleMenu::processInput()
+void Menu::processInput()
 {
   if (userInput == "1")
   {
-    std::cout << "RayTracer is loading, please wait" << std::endl;
+    std::cout << "4x6 Map was selected" << std::endl;
+    path = "../resources/4x6MAZE.txtt";
   }
   else if (userInput == "2")
   {
-    std::cout << "Enter new window width: " << std::endl;
-    std::cin >> windowWidth;
-
-    std::cout << "Enter new window height: " << std::endl;
-    std::cin >> windowHeight;
+    std::cout << "6x4 Map was selected" << std::endl;
+    path = "../resources/6x4MAZE.txtt";
   }
   else if (userInput == "3")
   {
-    running = false;
+    std::cout << "10x10 Map was selected" << std::endl;
+    path = "../resources/10x10MAZE.txtt";
+  }
+  else
+  {
+    std::cout << "Invalid input" << std::endl;
+   ;
   }
 }
