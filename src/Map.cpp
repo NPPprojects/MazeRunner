@@ -64,6 +64,7 @@ Map::Map(std::string _path)
   }
 
 }
+
 void Map::printMap()
 {
   for (int y = 0; y < mapHeight; y++)
@@ -84,6 +85,7 @@ void Map::printMap()
     }
   }
 }
+
 //function that removes the white space from the text file
 void Map::splitStringWhitespace(std::string& input, std::vector<std::string>& output)
 {
@@ -124,4 +126,67 @@ void Map::initialiseMap()
     }
   }
 
+}
+
+std::vector<std::vector<int>> Map::getMapData()
+{
+  return mapData;
+}
+
+void Map::renderMap()
+{
+  if (SDL_Init(SDL_INIT_VIDEO) < 0)
+  {
+    throw std::exception();
+  }
+  const int blockSize = 40;
+
+  SDL_Window *window = SDL_CreateWindow("AI",
+    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    mapWidth*blockSize, mapHeight*blockSize, SDL_WINDOW_RESIZABLE); // create the window
+  if (window==NULL)
+  {
+    throw std::exception();
+  }
+
+  SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, 0); // create the renderer
+
+  if (!renderer)
+  {
+    throw std::exception();
+  }
+  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+  SDL_Rect block{ 0, 0, blockSize, blockSize }; // create the drawing block
+
+  for (int i = 0; i < mapHeight; i++) // put the map data into window
+  {
+    for (int j = 0; j < mapWidth; j++)
+    {
+      switch (mapData[j][i])
+      {
+      case 0:
+        SDL_SetRenderDrawColor(renderer, 245, 245, 245, 245); // grey if empty space
+        break;
+      case 1:
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0); // black if wall
+        break;
+      case 2:
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // red if start
+        break;
+      case 3:
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // green if finish
+        break;
+      default:
+        break;
+      }
+
+      block.x = (j % mapWidth) * blockSize; // set block x position
+      block.y = (i % mapHeight) * blockSize; // set block y position
+      SDL_RenderFillRect(renderer, &block); // draw the block
+    }
+  }
+  SDL_RenderPresent(renderer);
+
+  SDL_DestroyWindow(window);
+  SDL_DestroyRenderer(renderer);
 }

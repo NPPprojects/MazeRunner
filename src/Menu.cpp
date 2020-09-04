@@ -20,6 +20,7 @@ void Menu::run()
     processInput();
     std::shared_ptr<Map> map = std::make_shared<Map>(path);
     map->printMap();
+    map->renderMap();
   }
 }
 

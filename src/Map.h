@@ -3,12 +3,19 @@
 #include <string>
 #include <vector>
 
+#include <SDL2/SDL.h>
+  
+
 class Map
 {
 public:
+  
   Map(std::string _path);
   
   void printMap();
+
+  void renderMap();
+
 private:
 
   int mapWidth;
@@ -21,4 +28,5 @@ private:
 
   void splitStringWhitespace(std::string & input, std::vector<std::string>& output);
   void initialiseMap();
+  std::vector<std::vector<int>> getMapData();
 };

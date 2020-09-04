@@ -28,6 +28,12 @@ add_executable(MazeSolver
 
 	src/Menu.cpp
 	src/Menu.h
+
+	src/Node.cpp
+	src/Node.h
+
+	src/Chromosome.cpp
+	src/Chromosome.h
 )
 
 target_link_libraries(MazeSolver SDL2)
